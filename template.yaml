@@ -1,15 +1,15 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: create-new-repository
-  title: Create New Repository
-  description: Create a new repository
+  name: create-nodejs-repository
+  title: Criar um Repositório Node.js
+  description: Modelo para criar um novo repositório Node.js com as melhores práticas e configurações recomendadas
   tags:
-    - recommended
+    - recomendado
     - nodejs
 spec:
   owner: user:guest
-  type: service
+  type: serviço
 
   parameters:
     - title: Informações do Projeto
