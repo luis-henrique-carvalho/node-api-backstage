@@ -51,25 +51,6 @@ spec:
         project: backstage
         organization: luishenrique92250483
 
-    - id: commit-changes
-      name: Create Commit with files
-      action: azure:create-commit
-      input:
-        repository: ${{ parameters.name }}
-        organization: luishenrique92250483
-        project: backstage
-        branch: master
-        fileList:
-          - filePath: ""
-            fileType: "env"
-            content: |
-              DATABASE_URL=postgres://user:password@localhost:5433/name
-              POSTGRES_USER=user
-              POSTGRES_PASSWORD=password
-              POSTGRES_DATABASE_NAME=name
-              POSTGRES_HOST=localhost
-              PORT=5433
-
     - id: create-branch
       name: Create Branch
       action: azure:create-branch
