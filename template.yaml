@@ -27,13 +27,10 @@ spec:
         offer:
           title: Oferta de Arquitetura
           description: Selecione qual oferta de arquitetura deseja utilizar.
-          type: array
-          items:
-            type: string
-            enum:
-              - NodeJS
-          uniqueItems: true
-          ui:widget: checkboxes
+          type: string
+          enum:
+            - NodeJS
+          ui:widget: select
 
   steps:
     - id: fetch-base
