@@ -1,9 +1,9 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{ parameters.name }}
+  name: ${{ values.name | dump }}
   annotations:
-    azure.com/repository-id: ${{ parameters.name }}
+    azure.com/repository-id: ${{ values.name | dump }}
     azure.com/organization: luishenrique92250483
     azure.com/project: backstage
 spec:
