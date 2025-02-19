@@ -1,5 +1,5 @@
 {
-  "name": "${{ values.name }}",
+  "name": "node-api-backstage",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

@@ -1,0 +1,98 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-new-repository
+  title: Create New Repository
+  description: Create a new repository
+  tags:
+    - recommended
+    - nodejs
+spec:
+  owner: user:guest
+  type: service
+
+  parameters:
+    - title: Informações do Projeto
+      required:
+        - name
+        - offer
+      properties:
+        name:
+          title: Nome do Projeto
+          type: string
+          description: Selecione o nome do projeto.
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        offer:
+          title: Oferta de Arquitetura
+          description: Selecione qual oferta de arquitetura deseja utilizar.
+          type: array
+          items:
+            type: string
+            enum:
+              - NodeJS
+          uniqueItems: true
+          ui:widget: checkboxes
+
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./content
+        values:
+          name: ${{ parameters.name }}
+
+    - id: publish-azure
+      name: Publish to Azure DevOps
+      action: publish:azure
+      input:
+        allowedHosts: ["dev.azure.com"]
+        description: This is ${{ parameters.name }}
+        repoUrl: "dev.azure.com?repo=${{ parameters.name }}&organization=luishenrique92250483&project=backstage"
+        project: backstage
+        organization: luishenrique92250483
+
+    - id: commit-changes
+      name: Create Commit with files
+      action: azure:create-commit
+      input:
+        repository: ${{ parameters.name }}
+        organization: luishenrique92250483
+        project: backstage
+        branch: master
+        fileList:
+          - filePath: "."
+            fileType: "env"
+            content: |
+              DATABASE_URL=postgres://user:password@localhost:5433/name
+              POSTGRES_USER=user
+              POSTGRES_PASSWORD=password
+              POSTGRES_DATABASE_NAME=name
+              POSTGRES_HOST=localhost
+              PORT=5433
+
+    - id: create-branch
+      name: Create Branch
+      action: azure:create-branch
+      input:
+        repository: ${{ parameters.name }}
+        organization: luishenrique92250483
+        project: backstage
+        branchNames: ["develop", "qa", "uat"]
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish-azure'].output.remoteUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish-azure'].output.remoteUrl }}?path=%2F
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}

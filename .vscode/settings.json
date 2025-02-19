@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/app-config.json": "file:///home/luis/Documentos/Git/node-api-backstage/template.yaml",
+        "https://json.schemastore.org/catalog-info.json": "file:///home/luis/Documentos/Git/node-api-backstage/content/catalog-info.yaml"
+    }
+}

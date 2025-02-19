@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ parameters.name }}
+  annotations:
+    azure.com/repository-id: ${{ parameters.name }}
+    azure.com/organization: luishenrique92250483
+    azure.com/project: backstage
+spec:
+  type: service
+  owner: user:guest
+  lifecycle: experimental
