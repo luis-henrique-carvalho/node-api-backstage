@@ -63,7 +63,7 @@ spec:
         project: backstage
         branch: master
         fileList:
-          - filePath: "."
+          - filePath: ""
             fileType: "env"
             content: |
               DATABASE_URL=postgres://user:password@localhost:5433/name
